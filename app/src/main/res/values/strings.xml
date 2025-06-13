@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TicTac</string>
+
+    <string name="signin_with_google">Login with Google</string>
+    <string name="login_successfully">Login Successfully!</string>
+    <string name="login_failed">Login Failed: %1$s</string>
+    <string name="web_client_id" translatable="false">339095886052-a0np63v58fjkv4n591b5mnn3ca8kvmi9.apps.googleusercontent.com</string>
+    <string name="frequency">Frequency: %1$s</string>
 </resources>

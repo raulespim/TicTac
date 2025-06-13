@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TicTac</string>
+
+    <string name="signin_with_google">Entrar com Google</string>
+    <string name="login_successfully">Você fez o login com sucesso!</string>
+    <string name="login_failed">Falha no Login: %1$s</string>
+    <string name="frequency">Frequência: %1$s</string>
+</resources>

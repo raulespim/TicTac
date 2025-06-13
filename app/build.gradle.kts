@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.compose.material3)
 
     implementation(libs.decompose)
+    implementation(libs.decompose.extensions.compose.jvm)
     implementation(libs.decompose.extensions.android)
     implementation(libs.essenty)
     implementation(libs.essenty.coroutines)
@@ -69,8 +70,13 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore)
+
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
 
     implementation(libs.datastore.preferences)
     implementation(libs.datastore.core)
