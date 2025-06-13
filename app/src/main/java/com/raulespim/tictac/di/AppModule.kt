@@ -29,6 +29,8 @@ import com.raulespim.tictac.ui.screens.medication.MedicationComponent
 import com.raulespim.tictac.ui.screens.medication.MedicationComponentImpl
 import com.raulespim.tictac.ui.screens.task.TaskComponent
 import com.raulespim.tictac.ui.screens.task.TaskComponentImpl
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 
 val appModule = module {
@@ -36,9 +38,9 @@ val appModule = module {
     //data
     single { FirebaseAuth.getInstance() }
     single { FirebaseFirestore.getInstance() }
-    single {
+    single<AppDatabase> {
         Room.databaseBuilder(
-            get(),
+            get<Context>(),
             AppDatabase::class.java,
             "tictac_db"
         ).build()
@@ -59,9 +61,7 @@ val appModule = module {
     factory { GoogleSignInUseCase(get()) }
     factory { CheckAuthStatusUseCase(get()) }
 
-    //ui
-    single { get<Context>() }
-
+    // UI Components
     factory<RootComponent> { (componentContext: ComponentContext) ->
         RootComponentImpl(
             componentContext = componentContext,
@@ -72,7 +72,11 @@ val appModule = module {
         LoginComponentImpl(
             componentContext = componentContext,
             googleSignInUseCase = get(),
-            onNavigateToHome = { get<RootComponent>().navigateTo(ScreenConfig.Medication) }
+            onNavigateToHome = {
+                get<RootComponent>(parameters = { parametersOf(componentContext) }).navigateTo(
+                    ScreenConfig.Medication
+                )
+            }
         )
     }
     factory<MedicationComponent> { (componentContext: ComponentContext) ->
