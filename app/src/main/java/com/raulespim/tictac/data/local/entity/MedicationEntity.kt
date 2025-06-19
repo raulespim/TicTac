@@ -11,5 +11,6 @@ data class MedicationEntity(
     val time: Long, // Alert Timestamp
     val frequency: String, // e.g., "DAILY", "WEEKLY"
     val isTaken: Boolean,
-    val createdAt: Long
+    val createdAt: Long,
+    val lastModified: Long
 )

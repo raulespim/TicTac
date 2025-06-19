@@ -1,5 +1,6 @@
 package com.raulespim.tictac.domain.usecase
 
+import com.raulespim.tictac.core.worker.SyncScheduler
 import com.raulespim.tictac.data.repository.TaskRepository
 import com.raulespim.tictac.domain.model.Task
 import java.util.UUID
@@ -13,6 +14,7 @@ class AddTaskUseCase(
         description: String?,
         time: Long
     ) {
+        val now = System.currentTimeMillis()
         val task = Task(
             id = generateTaskId(),
             userId = userId,
@@ -20,9 +22,11 @@ class AddTaskUseCase(
             description = description,
             time = time,
             isCompleted = false,
-            createdAt = System.currentTimeMillis()
+            createdAt = now,
+            lastModified = now
         )
         taskRepository.addTask(task)
+        SyncScheduler.triggerSync()
     }
 
     private fun generateTaskId(): String {

@@ -8,8 +8,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.raulespim.tictac.data.local.AppDatabase
 import com.raulespim.tictac.data.repository.AuthRepository
 import com.raulespim.tictac.data.repository.AuthRepositoryImpl
+import com.raulespim.tictac.data.repository.MedicationFirestoreRepository
+import com.raulespim.tictac.data.repository.MedicationFirestoreRepositoryImpl
 import com.raulespim.tictac.data.repository.MedicationRepository
 import com.raulespim.tictac.data.repository.MedicationRepositoryImpl
+import com.raulespim.tictac.data.repository.TaskFirestoreRepository
+import com.raulespim.tictac.data.repository.TaskFirestoreRepositoryImpl
 import com.raulespim.tictac.data.repository.TaskRepository
 import com.raulespim.tictac.data.repository.TaskRepositoryImpl
 import com.raulespim.tictac.domain.usecase.AddMedicationUseCase
@@ -18,6 +22,8 @@ import com.raulespim.tictac.domain.usecase.CheckAuthStatusUseCase
 import com.raulespim.tictac.domain.usecase.GetMedicationsUseCase
 import com.raulespim.tictac.domain.usecase.GetTasksUseCase
 import com.raulespim.tictac.domain.usecase.GoogleSignInUseCase
+import com.raulespim.tictac.domain.usecase.SyncMedicationsUseCase
+import com.raulespim.tictac.domain.usecase.SyncTasksUseCase
 import com.raulespim.tictac.domain.usecase.UpdateMedicationStatusUseCase
 import com.raulespim.tictac.domain.usecase.UpdateTaskStatusUseCase
 import com.raulespim.tictac.ui.navigation.RootComponent
@@ -50,6 +56,8 @@ val appModule = module {
     single<MedicationRepository> { MedicationRepositoryImpl(get()) }
     single<TaskRepository> { TaskRepositoryImpl(get()) }
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
+    single<MedicationFirestoreRepository> { MedicationFirestoreRepositoryImpl(get()) }
+    single<TaskFirestoreRepository> { TaskFirestoreRepositoryImpl(get()) }
 
     //domain
     factory { AddMedicationUseCase(get()) }
@@ -60,6 +68,8 @@ val appModule = module {
     factory { UpdateTaskStatusUseCase(get()) }
     factory { GoogleSignInUseCase(get()) }
     factory { CheckAuthStatusUseCase(get()) }
+    factory { SyncMedicationsUseCase(get(), get()) }
+    factory { SyncTasksUseCase(get(), get()) }
 
     // UI Components
     factory<RootComponent> { (componentContext: ComponentContext) ->

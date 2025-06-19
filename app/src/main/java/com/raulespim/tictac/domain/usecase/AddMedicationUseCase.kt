@@ -1,5 +1,6 @@
 package com.raulespim.tictac.domain.usecase
 
+import com.raulespim.tictac.core.worker.SyncScheduler
 import com.raulespim.tictac.data.repository.MedicationRepository
 import com.raulespim.tictac.domain.model.Medication
 import java.util.UUID
@@ -13,6 +14,7 @@ class AddMedicationUseCase(
         time: Long,
         frequency: String
     ) {
+        val now = System.currentTimeMillis()
         val medication = Medication(
             id = generateMedicationId(),
             userId = userId,
@@ -20,9 +22,11 @@ class AddMedicationUseCase(
             time = time,
             frequency = frequency,
             isTaken = false,
-            createdAt = System.currentTimeMillis()
+            createdAt = now,
+            lastModified = now
         )
         medicationRepository.addMedication(medication)
+        SyncScheduler.triggerSync()
     }
 
     private fun generateMedicationId(): String {

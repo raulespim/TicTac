@@ -37,7 +37,8 @@ class TaskRepositoryImpl(
         description = description,
         time = time,
         isCompleted = isCompleted,
-        createdAt = createdAt
+        createdAt = createdAt,
+        lastModified = lastModified
     )
 
     private fun TaskEntity.toDomain() = Task(
@@ -47,6 +48,7 @@ class TaskRepositoryImpl(
         description = description,
         time = time,
         isCompleted = isCompleted,
-        createdAt = createdAt
+        createdAt = createdAt,
+        lastModified = lastModified
     )
 }

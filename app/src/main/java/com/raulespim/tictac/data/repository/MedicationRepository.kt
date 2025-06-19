@@ -37,7 +37,8 @@ class MedicationRepositoryImpl(
         time = time,
         frequency = frequency,
         isTaken = isTaken,
-        createdAt = createdAt
+        createdAt = createdAt,
+        lastModified = lastModified
     )
 
     private fun MedicationEntity.toDomain() = Medication(
@@ -47,7 +48,8 @@ class MedicationRepositoryImpl(
         time = time,
         frequency = frequency,
         isTaken = isTaken,
-        createdAt = createdAt
+        createdAt = createdAt,
+        lastModified = lastModified
     )
 
 }

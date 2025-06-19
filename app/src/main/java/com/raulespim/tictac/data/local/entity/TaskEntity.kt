@@ -11,5 +11,6 @@ data class TaskEntity(
     val description: String?,
     val time: Long, // Alert Timestamp
     val isCompleted: Boolean,
-    val createdAt: Long
+    val createdAt: Long,
+    val lastModified: Long
 )
