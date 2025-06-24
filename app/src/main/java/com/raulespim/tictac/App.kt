@@ -2,6 +2,7 @@ package com.raulespim.tictac
 
 import android.app.Application
 import com.google.firebase.FirebaseApp
+import com.raulespim.tictac.core.worker.SyncScheduler
 import com.raulespim.tictac.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -15,5 +16,6 @@ class App : Application() {
             androidContext(this@App)
             modules(appModule)
         }
+        SyncScheduler.schedulePeriodicSync()
     }
 }

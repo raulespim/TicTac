@@ -3,11 +3,13 @@ package com.raulespim.tictac.core.worker
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.raulespim.tictac.data.repository.AuthRepository
 import com.raulespim.tictac.domain.usecase.SyncMedicationsUseCase
 import com.raulespim.tictac.domain.usecase.SyncTasksUseCase
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.net.UnknownHostException
 
 class SyncWorker(
     context: Context,
@@ -25,7 +27,10 @@ class SyncWorker(
             syncTasksUseCase.invoke(userId)
             Result.success()
         } catch (e: Exception) {
-            Result.retry()
+            when (e) {
+                is UnknownHostException, is FirebaseFirestoreException -> Result.retry()
+                else -> Result.failure()
+            }
         }
     }
 }

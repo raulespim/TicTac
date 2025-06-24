@@ -1,5 +1,6 @@
 package com.raulespim.tictac.core.worker
 
+import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
@@ -10,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 object SyncScheduler {
 
-    private const val SYNC_WORK_NAME = "tictac_sync_work"
+    const val SYNC_WORK_NAME = "tictac_sync_work"
 
     fun schedulePeriodicSync() {
         val constraints = Constraints.Builder()
@@ -23,6 +24,11 @@ object SyncScheduler {
             repeatIntervalTimeUnit = TimeUnit.HOURS
         )
             .setConstraints(constraints)
+            .setBackoffCriteria(
+                BackoffPolicy.LINEAR,
+                15,
+                TimeUnit.MINUTES
+            )
             .build()
 
         WorkManager.getInstance()
@@ -40,6 +46,11 @@ object SyncScheduler {
 
         val syncRequest = OneTimeWorkRequestBuilder<SyncWorker>()
             .setConstraints(constraints)
+            .setBackoffCriteria(
+                BackoffPolicy.LINEAR,
+                10,
+                TimeUnit.MINUTES
+            )
             .build()
 
         WorkManager.getInstance()
